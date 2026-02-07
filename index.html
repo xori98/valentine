@@ -23,12 +23,13 @@
     h1 {
       font-size: 2.5rem;
       color: #d63384;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
     }
 
-    .asking-img {
-      max-width: 280px;
-      border-radius: 15px;
+    /* Button wrapper */
+    .buttons {
+      position: relative;
+      height: 60px;
       margin-bottom: 25px;
     }
 
@@ -43,12 +44,19 @@
     #yesBtn {
       background-color: #ff4d88;
       color: white;
-      margin-right: 10px;
+      margin-right: 15px;
     }
 
     #noBtn {
       background-color: #cccccc;
       position: absolute;
+      left: 120px;
+      top: 0;
+    }
+
+    .asking-img {
+      max-width: 280px;
+      border-radius: 15px;
     }
 
     .hidden {
@@ -68,8 +76,12 @@
   <!-- Question Screen -->
   <div class="container" id="questionScreen">
     <h1>Lucy, will you be my Valentine?</h1>
-    <button id="yesBtn">Yes</button>
-    <button id="noBtn">No</button>
+
+    <div class="buttons">
+      <button id="yesBtn">Yes</button>
+      <button id="noBtn">No</button>
+    </div>
+
     <img src="asking.jpg" alt="Asking" class="asking-img">
   </div>
 
@@ -86,8 +98,12 @@
     const celebrationScreen = document.getElementById("celebrationScreen");
 
     function moveNoButton() {
-      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+      const parent = noBtn.parentElement;
+      const maxX = parent.offsetWidth - noBtn.offsetWidth;
+      const maxY = parent.offsetHeight - noBtn.offsetHeight;
+
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
 
       noBtn.style.left = `${x}px`;
       noBtn.style.top = `${y}px`;
