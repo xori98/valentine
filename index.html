@@ -49,6 +49,7 @@
 
     #noBtn {
       background-color: #cccccc;
+      /* start as static so it appears right of Yes */
     }
 
     .asking-img {
@@ -97,46 +98,55 @@
     let escaped = false;
 
     function moveNoButton() {
+      const parent = noBtn.parentElement;
+      const parentWidth = parent.offsetWidth;
+      const parentHeight = parent.offsetHeight;
+
+      // Lock position on first escape
+      if (!escaped) {
+        const rect = noBtn.getBoundingClientRect();
+        const parentRect = parent.getBoundingClientRect();
+
+        noBtn.style.position = "absolute";
+        noBtn.style.left = `${rect.left - parentRect.left}px`;
+        noBtn.style.top = `${rect.top - parentRect.top}px`;
+
+        escaped = true;
+      }
+
+      // Get Yes position relative to parent
       const yesRect = yesBtn.getBoundingClientRect();
-      const parentRect = noBtn.parentElement.getBoundingClientRect();
+      const parentRect = parent.getBoundingClientRect();
+      const yesLeft = yesRect.left - parentRect.left;
+      const yesTop = yesRect.top - parentRect.top;
+      const yesRight = yesLeft + yesBtn.offsetWidth;
+      const yesBottom = yesTop + yesBtn.offsetHeight;
 
-      const parentWidth = parentRect.width;
-      const parentHeight = parentRect.height;
+      let x, y, safe = false;
 
-      let x, y;
-      let safe = false;
-
-      // Repeat until a safe position is found
+      // Pick random position until it doesn't overlap Yes
       while (!safe) {
         x = Math.random() * (parentWidth - noBtn.offsetWidth);
         y = Math.random() * (parentHeight - noBtn.offsetHeight);
 
         const noLeft = x;
-        const noRight = x + noBtn.offsetWidth;
         const noTop = y;
+        const noRight = x + noBtn.offsetWidth;
         const noBottom = y + noBtn.offsetHeight;
 
-        const yesLeft = yesRect.left - parentRect.left;
-        const yesRight = yesLeft + yesRect.width;
-        const yesTop = yesRect.top - parentRect.top;
-        const yesBottom = yesTop + yesRect.height;
-
-        // Check if No overlaps Yes
         if (
-          noRight < yesLeft || // No is completely left
-          noLeft > yesRight || // No is completely right
-          noBottom < yesTop || // No is completely above
-          noTop > yesBottom    // No is completely below
+          noRight < yesLeft ||  // completely left
+          noLeft > yesRight ||  // completely right
+          noBottom < yesTop ||  // completely above
+          noTop > yesBottom     // completely below
         ) {
-          safe = true; // no overlap
+          safe = true;
         }
       }
 
       noBtn.style.left = `${x}px`;
       noBtn.style.top = `${y}px`;
     }
-
-
 
     noBtn.addEventListener("mouseover", moveNoButton);
     noBtn.addEventListener("click", moveNoButton);
