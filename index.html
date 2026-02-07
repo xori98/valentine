@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Be My Valentine 💖</title>
+  <title>Be My Valentine</title>
 
   <style>
     body {
@@ -63,16 +63,16 @@
 
   <!-- Question Screen -->
   <div class="container" id="questionScreen">
-    <h1>Will you be my Valentine? 💘</h1>
+    <h1>Lucy, will you be my Valentine?</h1>
     <button id="yesBtn">Yes</button>
     <button id="noBtn">No</button>
+    <img src="asking.jpg" alt="asking">
   </div>
 
   <!-- Celebration Screen -->
   <div class="container hidden celebration" id="celebrationScreen">
-    <h1>YAY!!! 🥰💖</h1>
-    <p>I love you!</p>
-    <img src="celebration.jpg" alt="Celebration">
+    <h1>Very good choice!!!</h1>
+    <img src="celebrating.png" alt="Celebration">
   </div>
 
   <script>
@@ -89,9 +89,6 @@
 
       noBtn.style.left = `${x}px`;
       noBtn.style.top = `${y}px`;
-
-      scale += 0.15;
-      yesBtn.style.transform = `scale(${scale})`;
     }
 
     noBtn.addEventListener("mouseover", moveNoButton);
