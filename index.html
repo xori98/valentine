@@ -49,9 +49,6 @@
 
     #noBtn {
       background-color: #cccccc;
-      position: absolute;
-      left: 120px;
-      top: 0;
     }
 
     .asking-img {
@@ -97,7 +94,22 @@
     const questionScreen = document.getElementById("questionScreen");
     const celebrationScreen = document.getElementById("celebrationScreen");
 
+    let escaped = false;
+
     function moveNoButton() {
+      if (!escaped) {
+        // Capture current position
+        const rect = noBtn.getBoundingClientRect();
+        const parentRect = noBtn.parentElement.getBoundingClientRect();
+
+        // Switch to absolute positioning at same spot
+        noBtn.style.position = "absolute";
+        noBtn.style.left = `${rect.left - parentRect.left}px`;
+        noBtn.style.top = `${rect.top - parentRect.top}px`;
+
+        escaped = true;
+      }
+
       const parent = noBtn.parentElement;
       const maxX = parent.offsetWidth - noBtn.offsetWidth;
       const maxY = parent.offsetHeight - noBtn.offsetHeight;
@@ -108,6 +120,7 @@
       noBtn.style.left = `${x}px`;
       noBtn.style.top = `${y}px`;
     }
+
 
     noBtn.addEventListener("mouseover", moveNoButton);
     noBtn.addEventListener("click", moveNoButton);
