@@ -52,6 +52,16 @@
       /* start as static so it appears right of Yes */
     }
 
+    #planBtn {
+      background-color: #ff4d88;
+      color: white;
+      font-size: 1.1rem;
+      padding: 12px 22px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+    }
+
     .asking-img {
       max-width: 280px;
       border-radius: 15px;
@@ -87,6 +97,22 @@
   <div class="container hidden celebration" id="celebrationScreen">
     <h1>Very good choice!!!</h1>
     <img src="celebrating.png" alt="Celebration">
+
+    <br><br>
+    <button id="planBtn">What are we going to do?</button>
+  </div>
+
+  <!-- Schedule Screen -->
+  <div class="container hidden" id="scheduleScreen">
+    <h1>Our Valentine's Plan</h1>
+
+    <p style="font-size: 1.2rem; line-height: 1.8;">
+      <strong>5:00 PM</strong> - Candle Making at Colibri Pottery 🕯️<br>
+      <strong>8:00 PM</strong> - Dinner at Amarena 🍽️<br>
+      <strong>11:00 PM</strong> - Drinks to celebrate 🥂
+    </p>
+
+    <h2 style="margin-top: 25px; color: #d63384;">Are you ready?</h2>
   </div>
 
   <script>
@@ -154,6 +180,14 @@
     yesBtn.addEventListener("click", () => {
       questionScreen.classList.add("hidden");
       celebrationScreen.classList.remove("hidden");
+    });
+
+    const planBtn = document.getElementById("planBtn");
+    const scheduleScreen = document.getElementById("scheduleScreen");
+
+    planBtn.addEventListener("click", () => {
+      celebrationScreen.classList.add("hidden");
+      scheduleScreen.classList.remove("hidden");
     });
   </script>
 
